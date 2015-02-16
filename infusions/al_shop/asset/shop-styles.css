@@ -1,0 +1,19 @@
+a.shop-button {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #fff;
+    background-color: #f6a504;
+    background-image: url(button.gif);
+    padding: 3.5px;
+    border: 1px solid #000;
+}
+a:hover.shop-button {
+    text-decoration: none;
+}
+.del-param, .del-ex-param {
+    width: 16px;
+    height: 16px;
+    background: url(../../../images/no.png) 0 0 no-repeat;
+    display: inline-block;
+    margin-bottom: -5px;
+}
