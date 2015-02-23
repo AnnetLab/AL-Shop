@@ -3,8 +3,8 @@
 	<channel>
 		<title>AL Shop</title>
 		<description>PHP-Fusion 7 e-shop</description>
-		<link>/</link>
-		<atom:link href="/" rel="self" type="application/rss+xml" />
+		<link>/AL-Shop/</link>
+		<atom:link href="/AL-Shop/" rel="self" type="application/rss+xml" />
 		
 			<item>
 				<title>Release in open source</title>
@@ -21,8 +21,8 @@
 
 </description>
 				<pubDate>Mon, 23 Feb 2015 17:17:44 +0300</pubDate>
-				<link>/releases/2015/02/23/open-source-release.html</link>
-				<guid isPermaLink="true">/releases/2015/02/23/open-source-release.html</guid>
+				<link>/AL-Shop/releases/2015/02/23/open-source-release.html</link>
+				<guid isPermaLink="true">/AL-Shop/releases/2015/02/23/open-source-release.html</guid>
 			</item>
 		
 	</channel>
