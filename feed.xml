@@ -1,21 +1,29 @@
----
-layout: null
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>{{ site.title }}</title>
-		<description>{{ site.description }}</description>
-		<link>{{ site.BASE_PATH }}/</link>
-		<atom:link href="{{ site.BASE_PATH }}/{{ site.rss_path }}" rel="self" type="application/rss+xml" />
-		{% for post in site.posts limit:10 %}
+		<title>AL Shop</title>
+		<description>PHP-Fusion 7 e-shop</description>
+		<link>/</link>
+		<atom:link href="/" rel="self" type="application/rss+xml" />
+		
 			<item>
-				<title>{{ post.title }}</title>
-				<description>{{ post.content | xml_escape }}</description>
-				<pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
-				<link>{{ site.BASE_PATH }}{{ post.url }}</link>
-				<guid isPermaLink="true">{{ site.BASE_PATH }}{{ post.url }}</guid>
+				<title>Release in open source</title>
+				<description>&lt;p&gt;&lt;strong&gt;AL Shop&lt;/strong&gt; - it’s an e-commerce system for PHP-Fusion 7. That was private available plugin till today, but i have decided to make it public.&lt;/p&gt;
+
+&lt;p&gt;Feel free to to use issue tracker for questions/bugs. And of course feel free to send your pull requests.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/AnnetLab/AL-Shop&quot;&gt;Take a look at code&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Download:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a class=&quot;btn btn-default&quot; href=&quot;https://github.com/AnnetLab/AL-Shop/archive/v1.3.0.zip&quot;&gt;Latest stable release v1.3&lt;/a&gt;
+&lt;a class=&quot;btn btn-default&quot; href=&quot;https://github.com/AnnetLab/AL-Shop/archive/master.zip&quot;&gt;Master branch&lt;/a&gt;&lt;/p&gt;
+
+</description>
+				<pubDate>Mon, 23 Feb 2015 17:17:44 +0300</pubDate>
+				<link>/releases/2015/02/23/open-source-release.html</link>
+				<guid isPermaLink="true">/releases/2015/02/23/open-source-release.html</guid>
 			</item>
-		{% endfor %}
+		
 	</channel>
 </rss>
