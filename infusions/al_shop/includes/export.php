@@ -6,6 +6,8 @@ if (isset($_POST['export']) && iADMIN && checkrights("SHP")) {
 
     if (!empty($_POST['export_cats'])) {
 
+        $images_as_ids = isset($_POST['images_as_id']) && $_POST['images_as_id'] == 'yes';
+
         require_once AL_SHOP_DIR."includes/classes/PHPExcel.php";
         $cats_str = "'".implode("','",$_POST['export_cats'])."'";
         $result = dbquery("SELECT g.*,c.*,m.*,i.* FROM ".DB_AL_SHOP_GOODS." g
@@ -19,8 +21,6 @@ if (isset($_POST['export']) && iADMIN && checkrights("SHP")) {
             $validLocale = PHPExcel_Settings::setLocale('ru');
             $objPHPExcel = new PHPExcel();
 
-
-
             $objPHPExcel->getProperties()->setCreator($settings['sitename'])
                 ->setLastModifiedBy($settings['sitename'])
                 ->setTitle($settings['sitename']." shop exported data")
@@ -30,24 +30,44 @@ if (isset($_POST['export']) && iADMIN && checkrights("SHP")) {
                 ->setCategory($settings['sitename']." shop exported data");
 
             $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('A1', 'Title')
-                ->setCellValue('B1', 'Category')
-                ->setCellValue('C1', 'Description')
-                ->setCellValue('D1', 'Manufacturer')
-                ->setCellValue('E1', 'Image')
-                ->setCellValue('F1', 'Cost')
-                ->setCellValue('G1', 'Currency');
+                ->setCellValue('A1', 'ID')
+                ->setCellValue('B1', 'Title')
+                ->setCellValue('C1', 'Category')
+                ->setCellValue('D1', 'Description')
+                ->setCellValue('E1', 'Manufacturer')
+                ->setCellValue('F1', 'Image')
+                ->setCellValue('G1', 'Other images')
+                ->setCellValue('H1', 'Cost')
+                ->setCellValue('I1', 'Currency');
 
             $i = 2;
             while ($data = dbarray($result)) {
+
+                $images = '';
+                if (!empty($data['shp_good_images'])) {
+                    if ($images_as_ids) {
+                        $images = implode('||', explode('.',$data['shp_good_images']));
+                    } else {
+                        $images_result = dbquery("SELECT * FROM ".DB_AL_SHOP_IMAGES." WHERE shp_image_id IN (".implode(',',explode('.', $data['shp_good_images'])).")");
+                        if (dbrows($images_result)) {
+                            while($image = dbarray($images_result)) {
+                                $images .= $images ? '||' : '';
+                                $images .= $settings['siteurl']."infusions/al_shop/asset/goods/".$image['shp_image_file'];
+                            }
+                        }
+                    }
+                }
+
                 $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A'.$i, iconv("Windows-1251","UTF-8",$data['shp_good_title']))
-                    ->setCellValue('B'.$i, iconv("Windows-1251","UTF-8",$data['shp_cat_title']))
-                    ->setCellValue('C'.$i, iconv("Windows-1251","UTF-8",$data['shp_good_desc']))
-                    ->setCellValue('D'.$i, iconv("Windows-1251","UTF-8",$data['shp_manufacturer_title']))
-                    ->setCellValue('E'.$i, $data['shp_image_file'] ? $settings['siteurl']."infusions/al_shop/asset/goods/".$data['shp_image_file'] : "")
-                    ->setCellValue('F'.$i, $data['shp_good_cost'])
-                    ->setCellValue('G'.$i, $data['shp_good_currency']);
+                    ->setCellValue('A'.$i, $data['shp_good_id'])
+                    ->setCellValue('B'.$i, iconv("Windows-1251","UTF-8",$data['shp_good_title']))
+                    ->setCellValue('C'.$i, iconv("Windows-1251","UTF-8",$data['shp_cat_title']))
+                    ->setCellValue('D'.$i, iconv("Windows-1251","UTF-8",$data['shp_good_desc']))
+                    ->setCellValue('E'.$i, iconv("Windows-1251","UTF-8",$data['shp_manufacturer_title']))
+                    ->setCellValue('F'.$i, $images_as_ids && $data['shp_good_cover'] > 0 ? $data['shp_good_cover'] : ($data['shp_image_file'] ? $settings['siteurl']."infusions/al_shop/asset/goods/".$data['shp_image_file'] : ""))
+                    ->setCellValue('G'.$i, $images)
+                    ->setCellValue('H'.$i, $data['shp_good_cost'])
+                    ->setCellValue('I'.$i, $data['shp_good_currency']);
                 $i++;
             }
 

@@ -350,6 +350,7 @@ $locale['shp343'] = "Фильтровать по цене";
 $locale['shp344'] = "От";
 $locale['shp345'] = "до";
 $locale['shp346'] = "Применить фильтр";
+$locale['shp347'] = "Картинки как ID";
 $locale['shp'] = "";
 
 // mostbuy panel

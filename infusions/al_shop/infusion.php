@@ -216,6 +216,6 @@ $inf_sitelink[1] = array(
     "title" => $locale['shp1'],
     "url" => "../../shop.php",
     "visibility" => "0"
-)
+);
 
 ?>

@@ -42,6 +42,7 @@ if (isset($_POST['import'])) {
         echo "<form method='post' action='".AL_SHOP_DIR."includes/export.php'>";
         echo "<table width='100%'>";
         $i = 0;
+        echo "<tr><td colspan='4'><input type='checkbox' name='images_as_id' value='yes' id='images_as_id'><label for='images_as_id'>".$locale['shp347']."</label></td></tr>";
         echo "<tr>";
         while ($data = dbarray($result)) {
             if ($i%4==0 && $i!=0) echo "</tr><tr>";
